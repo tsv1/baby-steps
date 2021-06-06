@@ -4,11 +4,7 @@
 [![PyPI - Downloads](https://img.shields.io/pypi/dm/baby-steps?style=flat-square)](https://pypi.python.org/pypi/baby-steps/)
 [![Python Version](https://img.shields.io/pypi/pyversions/baby-steps.svg?style=flat-square)](https://pypi.python.org/pypi/baby-steps/)
 
-## Installation
-
-```sh
-pip3 install baby-steps
-```
+BDD steps for test markup. Just for readability.
 
 ## Usage
 
@@ -29,4 +25,10 @@ def test_smth():
     with then:
         assert res == value
         assert mock.mock_calls == [call()]
+```
+
+## Installation
+
+```sh
+pip3 install baby-steps
 ```
