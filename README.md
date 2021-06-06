@@ -1,5 +1,9 @@
 # Baby Steps
 
+[![PyPI](https://img.shields.io/pypi/v/baby-steps.svg?style=flat-square)](https://pypi.python.org/pypi/baby-steps/)
+[![PyPI - Downloads](https://img.shields.io/pypi/dm/baby-steps?style=flat-square)](https://pypi.python.org/pypi/baby-steps/)
+[![Python Version](https://img.shields.io/pypi/pyversions/baby-steps.svg?style=flat-square)](https://pypi.python.org/pypi/baby-steps/)
+
 ## Installation
 
 ```sh
