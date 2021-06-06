@@ -34,4 +34,4 @@ then = Then()
 
 
 __all__ = ("given", "when", "then", "Context",)
-__version__ = "0.0.1"
+__version__ = "0.1.0"
