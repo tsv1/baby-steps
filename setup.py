@@ -13,6 +13,7 @@ setup(
     url="https://github.com/nikitanovosibirsk/baby-steps",
     license="Apache-2.0",
     packages=find_packages(exclude=("tests",)),
+    package_data={"baby_steps": ["py.typed"]},
     install_requires=[],
     tests_require=[],
     classifiers=[
