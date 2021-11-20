@@ -2,7 +2,7 @@ from types import TracebackType
 from typing import Optional, Type
 
 
-class Context:
+class Step:
     def __enter__(self) -> None:
         pass
 
@@ -12,19 +12,19 @@ class Context:
                  exc_tb: Optional[TracebackType]) -> bool:
         pass
 
-    def __call__(self, name: str) -> "Context":
+    def __call__(self, name: str) -> "Step":
         return self
 
 
-class Given(Context):
+class Given(Step):
     pass
 
 
-class When(Context):
+class When(Step):
     pass
 
 
-class Then(Context):
+class Then(Step):
     pass
 
 
@@ -33,5 +33,5 @@ when = When()
 then = Then()
 
 
-__all__ = ("given", "when", "then", "Context",)
+__all__ = ("given", "when", "then", "Step",)
 __version__ = "1.0.2"

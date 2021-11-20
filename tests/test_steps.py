@@ -1,6 +1,6 @@
 import unittest
 
-from baby_steps import Context, given, then, when
+from baby_steps import Step, given, then, when
 
 
 class TestSteps(unittest.TestCase):
@@ -29,7 +29,7 @@ class TestSteps(unittest.TestCase):
             pass
 
     def test_custom_step(self):
-        class AndThen(Context):
+        class AndThen(Step):
             pass
         and_then = AndThen()
         with and_then:
