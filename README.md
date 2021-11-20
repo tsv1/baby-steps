@@ -46,6 +46,33 @@ def test_status_code():
         assert resp.status_code == code
 ```
 
+### Hooks
+
+```python
+from baby_steps import given, then, when
+from baby_steps.hooks import add_hook
+
+def test():
+    with given("status code"):
+        pass
+
+    with when("user requests a resource"):
+        pass
+
+    with then("it should return expected status code"):
+        pass
+
+
+def hook(step, name):
+    print(step, name)
+
+add_hook(hook)
+test()
+
+# <class 'baby_steps.Given'> 'status code'
+# <class 'baby_steps.When'> 'user requests a resource'
+# <class 'baby_steps.Then'> 'it should return expected status code'
+```
 
 ### Custom Steps
 
