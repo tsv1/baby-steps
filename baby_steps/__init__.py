@@ -1,30 +1,15 @@
-from types import TracebackType
-from typing import Optional, Type
+from ._step import Step
 
 
-class Context:
-    def __enter__(self) -> None:
-        pass
-
-    def __exit__(self,
-                 exc_type: Optional[Type[BaseException]],
-                 exc_val: Optional[BaseException],
-                 exc_tb: Optional[TracebackType]) -> bool:
-        pass
-
-    def __call__(self, name: str) -> "Context":
-        return self
-
-
-class Given(Context):
+class Given(Step):
     pass
 
 
-class When(Context):
+class When(Step):
     pass
 
 
-class Then(Context):
+class Then(Step):
     pass
 
 
@@ -32,6 +17,5 @@ given = Given()
 when = When()
 then = Then()
 
-
-__all__ = ("given", "when", "then", "Context",)
+__all__ = ("given", "when", "then", "Step",)
 __version__ = "1.0.2"

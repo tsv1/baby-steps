@@ -6,29 +6,84 @@
 
 BDD steps for test markup. Just for readability.
 
-## Usage
-
-```python
-from unittest.mock import Mock, call, sentinel
-
-from baby_steps import given, when, then
-
-
-def test_smth():
-    with given:
-        value = sentinel.smth
-        mock = Mock(return_value=value)
-
-    with when:
-        res = mock()
-
-    with then:
-        assert res == value
-        assert mock.mock_calls == [call()]
-```
-
 ## Installation
 
 ```sh
 pip3 install baby-steps
+```
+
+## Usage
+
+```python
+import httpx
+from baby_steps import given, when, then
+
+def test_status_code():
+    with given:
+        code = 200
+
+    with when:
+        resp = httpx.get(f"https://httpbin.org/status/{code}")
+
+    with then:
+        assert resp.status_code == code
+```
+
+### Named Steps
+
+```python
+import httpx
+from baby_steps import given, when, then
+
+def test_status_code():
+    with given("status code"):
+        code = 200
+
+    with when("user requests a resource"):
+        resp = httpx.get(f"https://httpbin.org/status/{code}")
+
+    with then("it should return expected status code"):
+        assert resp.status_code == code
+```
+
+### Hooks
+
+```python
+from baby_steps import given, then, when
+from baby_steps.hooks import add_hook
+
+def test():
+    with given("status code"):
+        pass
+
+    with when("user requests a resource"):
+        pass
+
+    with then("it should return expected status code"):
+        pass
+
+
+def hook(step, name):
+    print(step, name)
+
+add_hook(hook)
+test()
+
+# <class 'baby_steps.Given'> 'status code'
+# <class 'baby_steps.When'> 'user requests a resource'
+# <class 'baby_steps.Then'> 'it should return expected status code'
+```
+
+### Custom Steps
+
+```python
+from baby_steps import Step
+
+class AndThen(Step):
+    pass
+
+and_then = AndThen()
+
+with and_then("smth"):
+    pass
 ```
