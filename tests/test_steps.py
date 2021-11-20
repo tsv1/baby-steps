@@ -1,6 +1,8 @@
 import unittest
+from unittest.mock import Mock, call
 
 from baby_steps import Step, given, then, when
+from baby_steps.hooks import add_hook, del_hook
 
 
 class TestSteps(unittest.TestCase):
@@ -34,3 +36,39 @@ class TestSteps(unittest.TestCase):
         and_then = AndThen()
         with and_then:
             pass
+
+    def test_hook_step(self):
+        mock = Mock()
+        add_hook(mock)
+
+        with given:
+            pass
+
+        assert mock.mock_calls == [
+            call(given.__class__, None)
+        ]
+
+    def test_hook_step_with_name(self):
+        mock = Mock()
+        add_hook(mock)
+
+        with given("smth"):
+            pass
+
+        assert mock.mock_calls == [
+            call(given.__class__, "smth")
+        ]
+
+    def test_hook_del(self):
+        mock1, mock2 = Mock(), Mock()
+        add_hook(mock1)
+        add_hook(mock2)
+        del_hook(mock1)
+
+        with given:
+            pass
+
+        assert mock1.mock_calls == []
+        assert mock2.mock_calls == [
+            call(given.__class__, None)
+        ]

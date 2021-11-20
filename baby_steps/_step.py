@@ -18,7 +18,8 @@ class Step:
                  exc_type: Optional[Type[BaseException]],
                  exc_val: Optional[BaseException],
                  exc_tb: Optional[TracebackType]) -> bool:
-        pass
+        self._name = None
+        return exc_type is None
 
     def __call__(self, name: str) -> "Step":
         self._name = name
