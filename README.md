@@ -74,6 +74,30 @@ test()
 # <class 'baby_steps.Then'> 'it should return expected status code'
 ```
 
+#### Advanced
+
+```python
+from baby_steps import when
+from baby_steps.hooks import add_hook
+
+def test():
+    with when:
+        print("when")
+
+
+def hook(step, name):
+    print("before", step)
+    yield
+    print("after", step)
+
+add_hook(hook)
+test()
+
+# before <class 'baby_steps.When'>
+# when
+# after <class 'baby_steps.When'>
+```
+
 ### Custom Steps
 
 ```python
