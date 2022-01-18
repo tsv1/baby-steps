@@ -32,7 +32,7 @@ class Step:
             else:
                 try:
                     gen.throw(exc_type, exc_val, exc_tb)
-                except:
+                except StopIteration:
                     pass
 
         self._name = None
