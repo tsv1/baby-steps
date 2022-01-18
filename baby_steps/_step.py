@@ -24,10 +24,16 @@ class Step:
                  exc_tb: Optional[TracebackType]) -> bool:
         while len(self._stack) > 0:
             gen = self._stack.pop()
-            try:
-                next(gen)
-            except StopIteration:
-                pass
+            if exc_type is None:
+                try:
+                    next(gen)
+                except StopIteration:
+                    pass
+            else:
+                try:
+                    gen.throw(exc_type, exc_val, exc_tb)
+                except:
+                    pass
 
         self._name = None
         self._stack = []
