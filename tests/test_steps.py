@@ -1,3 +1,4 @@
+import sys
 import unittest
 from types import TracebackType
 from unittest.mock import Mock, call, MagicMock
@@ -134,10 +135,11 @@ class TestSteps(unittest.TestCase):
             call().__enter__(),
             call.step(),
         ]
-        last_call = mock_.mock_calls[-1]
-        assert last_call.args[0] == type(exception)
-        assert last_call.args[1] == exception
-        assert isinstance(last_call.args[2], TracebackType)
+        if sys.version_info >= (3, 8):
+            last_call = mock_.mock_calls[-1]
+            assert last_call.args[0] == type(exception)
+            assert last_call.args[1] == exception
+            assert isinstance(last_call.args[2], TracebackType)
 
     def test_multiple_hooks_before_after(self):
         manager_ = Mock()
