@@ -1,5 +1,6 @@
 import unittest
-from unittest.mock import Mock, call
+from types import TracebackType
+from unittest.mock import Mock, call, MagicMock
 
 from baby_steps import Step, given, then, when
 from baby_steps.hooks import _hooks, add_hook, del_hook
@@ -93,6 +94,50 @@ class TestSteps(unittest.TestCase):
             call.hook2(given.__class__, None),
             call.step(),
         ]
+
+    def test_cm_hook_before_after(self):
+        mock_ = MagicMock()
+
+        def hook(step, name):
+            with mock_(step, name):
+                yield
+
+        add_hook(hook)
+
+        with given:
+            mock_.step()
+
+        assert mock_.mock_calls == [
+            call(given.__class__, None),
+            call().__enter__(),
+            call.step(),
+            call().__exit__(None, None, None),
+        ]
+
+    def test_cm_error_hook_before_after(self):
+        mock_ = MagicMock()
+
+        def hook(step, name):
+            with mock_(step, name):
+                yield
+
+        add_hook(hook)
+
+        exception = AssertionError()
+        with self.assertRaises(type(exception)):
+            with given:
+                mock_.step()
+                raise exception
+
+        assert mock_.mock_calls[:-1] == [
+            call(given.__class__, None),
+            call().__enter__(),
+            call.step(),
+        ]
+        last_call = mock_.mock_calls[-1]
+        assert last_call.args[0] == type(exception)
+        assert last_call.args[1] == exception
+        assert isinstance(last_call.args[2], TracebackType)
 
     def test_multiple_hooks_before_after(self):
         manager_ = Mock()
