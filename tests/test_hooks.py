@@ -1,3 +1,4 @@
+import sys
 from typing import Any
 from unittest.mock import MagicMock, Mock, call
 
@@ -24,6 +25,12 @@ def create_mock_hook(return_value: Any = None) -> MagicMock:
     add_hook(hook)
 
     return mock
+
+
+def get_mock_last_call(mock: Mock):
+    if sys.version_info >= (3, 8):
+        return mock.mock_calls[-1].args[-1]
+    return MagicMock(__eq__=Mock(return_value=True))
 
 
 def test_hook_step():
@@ -109,7 +116,7 @@ def test_cm_error_hook_before_after():
     assert mock.mock_calls == [
         call.__enter__(),
         call.step(),
-        call.__exit__(type(exception), exception, mock.mock_calls[-1].args[-1])
+        call.__exit__(type(exception), exception, get_mock_last_call(mock))
     ]
 
 
@@ -126,7 +133,7 @@ def test_cm_error_hook_before_after_suppress():
     assert mock.mock_calls == [
         call.__enter__(),
         call.step(),
-        call.__exit__(type(exception), exception, mock.mock_calls[-1].args[-1])
+        call.__exit__(type(exception), exception, get_mock_last_call(mock))
     ]
 
 
@@ -143,7 +150,7 @@ def test_cm_error_hook_before_after_reraise():
     assert mock.mock_calls == [
         call.__enter__(),
         call.step(),
-        call.__exit__(type(exception), exception, mock.mock_calls[-1].args[-1])
+        call.__exit__(type(exception), exception, get_mock_last_call(mock))
     ]
 
 
@@ -161,7 +168,7 @@ def test_cm_error_hook_before_after_raise(raise_exc: Exception):
     assert mock.mock_calls == [
         call.__enter__(),
         call.step(),
-        call.__exit__(type(exception), exception, mock.mock_calls[-1].args[-1])
+        call.__exit__(type(exception), exception, get_mock_last_call(mock))
     ]
 
 

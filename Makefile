@@ -42,6 +42,17 @@ check-style:
 .PHONY: lint
 lint: check-types check-style check-imports
 
+.PHONY: all
+all: install lint test
+
+.PHONY: test-in-docker
+test-in-docker:
+	docker run -v `pwd`:/tmp/app -w /tmp/app python:$(or $(PYTHON_VERSION),3.6) make install test
+
+.PHONY: all-in-docker
+all-in-docker:
+	docker run -v `pwd`:/tmp/app -w /tmp/app python:$(or $(PYTHON_VERSION),3.6) make all
+
 .PHONY: bump
 bump:
 	bump2version $(filter-out $@,$(MAKECMDGOALS))
