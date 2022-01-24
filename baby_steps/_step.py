@@ -34,6 +34,9 @@ class Step:
                     gen.throw(exc_type, exc_val, exc_tb)
                 except StopIteration:
                     pass
+                except BaseException as e:
+                    if e is not exc_val:
+                        raise
 
         self._name = None
         self._stack = []

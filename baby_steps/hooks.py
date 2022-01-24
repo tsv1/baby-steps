@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING, Any, Callable, List, Type, Union
 
 __all__ = ("add_hook", "del_hook", "HookType",)
 
-if TYPE_CHECKING:
+if TYPE_CHECKING:  # pragma: nocover
     from ._step import Step
     StepType = Type[Step]
 else:
