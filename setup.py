@@ -9,7 +9,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Nikita Tsvetkov",
     author_email="nikitanovosibirsk@yandex.com",
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     url="https://github.com/nikitanovosibirsk/baby-steps",
     license="Apache-2.0",
     packages=find_packages(exclude=("tests",)),
@@ -18,7 +18,6 @@ setup(
     tests_require=[],
     classifiers=[
         "License :: OSI Approved :: Apache Software License",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
