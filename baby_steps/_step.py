@@ -1,5 +1,5 @@
 from types import GeneratorType, TracebackType
-from typing import List, Optional, Type, Union
+from typing import Any, List, Optional, Type, Union
 
 from .hooks import _hooks
 
@@ -9,7 +9,7 @@ __all__ = ("Step",)
 class Step:
     def __init__(self) -> None:
         self._name: Union[str, None] = None
-        self._stack: List[GeneratorType] = []
+        self._stack: List[GeneratorType[Any, None, None]] = []
 
     def __enter__(self) -> None:
         for hook in _hooks:
