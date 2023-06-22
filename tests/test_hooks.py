@@ -45,6 +45,18 @@ def test_hook_step():
     ]
 
 
+async def test_hook_async_step():
+    hook_ = Mock()
+    add_hook(hook_)
+
+    async with given:
+        pass
+
+    assert hook_.mock_calls == [
+        call(given.__class__, None)
+    ]
+
+
 def test_hook_step_with_name():
     hook_ = Mock()
     add_hook(hook_)

@@ -18,6 +18,9 @@ class Step:
                 next(maybe_gen)
                 self._stack.append(maybe_gen)
 
+    async def __aenter__(self) -> None:
+        return self.__enter__()
+
     def __exit__(self,
                  exc_type: Optional[Type[BaseException]],
                  exc_val: Optional[BaseException],
@@ -42,6 +45,12 @@ class Step:
         self._stack = []
 
         return exc_type is None
+
+    async def __aexit__(self,
+                        exc_type: Optional[Type[BaseException]],
+                        exc_val: Optional[BaseException],
+                        exc_tb: Optional[TracebackType]) -> bool:
+        return self.__exit__(exc_type, exc_val, exc_tb)
 
     def __call__(self, name: str) -> "Step":
         self._name = name

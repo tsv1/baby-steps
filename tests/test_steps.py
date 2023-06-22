@@ -6,8 +6,18 @@ def test_given():
         pass
 
 
+async def test_async_given():
+    async with given:
+        pass
+
+
 def test_given_with_name():
     with given("smth"):
+        pass
+
+
+async def test_async_given_with_name():
+    async with given("smth"):
         pass
 
 
@@ -36,4 +46,12 @@ def test_custom_step():
         pass
     and_then = AndThen()
     with and_then:
+        pass
+
+
+async def test_custom_async_step():
+    class AndThen(Step):
+        pass
+    and_then = AndThen()
+    async with and_then:
         pass
