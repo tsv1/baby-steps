@@ -3,7 +3,7 @@ from setuptools import find_packages, setup
 
 setup(
     name="baby-steps",
-    version="1.3.0",
+    version="1.3.1",
     description="Readability Matters",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",

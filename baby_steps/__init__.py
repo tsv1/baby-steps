@@ -18,4 +18,4 @@ when = When()
 then = Then()
 
 __all__ = ("given", "when", "then", "Step",)
-__version__ = "1.3.0"
+__version__ = "1.3.1"
